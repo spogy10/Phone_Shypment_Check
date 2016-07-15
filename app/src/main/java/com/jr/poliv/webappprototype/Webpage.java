@@ -62,7 +62,9 @@ public class Webpage extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.change_homepage) {
+
+            //TODO:insert intent that brings user to change url screen
             return true;
         }
 

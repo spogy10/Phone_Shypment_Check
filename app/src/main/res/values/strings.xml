@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Web App prototype</string>
     <string name="action_settings">Settings</string>
+
+    <string name="change_homepage">Change Homepage</string>
+    <string name="title_activity_change_url">ChangeUrl</string>
 </resources>
