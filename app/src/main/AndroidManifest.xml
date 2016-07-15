@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".ChangeUrl"
-            android:label="@string/title_activity_change_url"
+            android:label="@string/enter_url"
             android:parentActivityName=".Webpage"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

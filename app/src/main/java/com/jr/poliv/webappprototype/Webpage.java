@@ -1,5 +1,6 @@
 package com.jr.poliv.webappprototype;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -31,7 +32,7 @@ public class Webpage extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 11)
             webView.getSettings().setDisplayZoomControls(false);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://therecoveryunit.com");//http://192.168.1.5/app/rcu/users/login
+        webView.loadUrl("http://192.168.1.5/app/rcu/users/login");//http://therecoveryunit.com
     }
 
 
@@ -65,6 +66,8 @@ public class Webpage extends AppCompatActivity {
         if (id == R.id.change_homepage) {
 
             //TODO:insert intent that brings user to change url screen
+            Intent intent = new Intent(Webpage.this, ChangeUrl.class);
+            startActivity(intent);
             return true;
         }
 
