@@ -5,4 +5,7 @@
     <string name="change_homepage">Change Homepage</string>
     <string name="title_activity_change_url">ChangeUrl</string>
     <string name="enter_url">Enter URL</string>
+
+    <string name="url_file_name">Web Address</string>
+    <string name="url">URL</string>
 </resources>

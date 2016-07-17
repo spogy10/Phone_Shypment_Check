@@ -1,6 +1,8 @@
 package com.jr.poliv.webappprototype;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,12 +21,21 @@ public class Webpage extends AppCompatActivity {
 
     WebView webView;
 
+    SharedPreferences file;
+    String file_name;
+    String url;
+    String webAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webpage);
 
+        file_name = getString(R.string.url_file_name);
+        url = getString(R.string.url);
+        file = this.getSharedPreferences(file_name, Context.MODE_PRIVATE);
 
+        getURL();
        webView = (WebView) findViewById(R.id.webView);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -32,8 +43,24 @@ public class Webpage extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 11)
             webView.getSettings().setDisplayZoomControls(false);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://192.168.1.5/app/rcu/users/login");//http://therecoveryunit.com
+        webView.loadUrl(webAddress);//http://192.168.1.5/app/rcu/users/login//http://therecoveryunit.com
     }
+
+
+    private void getURL(){
+        if(!file.contains(url)) {
+            Intent intent = new Intent(Webpage.this, ChangeUrl.class);
+            startActivity(intent);
+        }
+        else
+            webAddress = getFromFile(file, url, "");
+    }
+
+
+    private String getFromFile(SharedPreferences file, String variable, String defaultValue){
+        return file.getString(variable, defaultValue);
+    }
+
 
 
     @Override
@@ -65,7 +92,6 @@ public class Webpage extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.change_homepage) {
 
-            //TODO:insert intent that brings user to change url screen
             Intent intent = new Intent(Webpage.this, ChangeUrl.class);
             startActivity(intent);
             return true;
