@@ -1,4 +1,4 @@
-package com.jr.poliv.webappprototype; //hi
+package com.jr.poliv.webappprototype;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,11 +33,11 @@ public class Webpage extends AppCompatActivity {
 
         //String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36";
 
-        file_name = getString(R.string.url_file_name);
-        url = getString(R.string.url);
-        file = this.getSharedPreferences(file_name, Context.MODE_PRIVATE);
+//        file_name = getString(R.string.url_file_name);
+//        url = getString(R.string.url);
+//        file = this.getSharedPreferences(file_name, Context.MODE_PRIVATE);
 
-        getURL();
+        //getURL();
        webView = (WebView) findViewById(R.id.webView);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -46,7 +46,7 @@ public class Webpage extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 11)
             webView.getSettings().setDisplayZoomControls(false);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(webAddress);//http://192.168.1.5/app/rcu/users/login//http://therecoveryunit.com
+        webView.loadUrl("http://www.postnl.post/");//http://192.168.1.5/app/rcu/users/login//http://therecoveryunit.com
     }
 
 
@@ -93,12 +93,12 @@ public class Webpage extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.change_homepage) {
+        /*if (id == R.id.change_homepage) {
 
             Intent intent = new Intent(Webpage.this, ChangeUrl.class);
             startActivity(intent);
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
