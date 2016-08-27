@@ -5,5 +5,5 @@
     <!--<item android:id="@+id/change_homepage"
         android:title="@string/change_homepage"
         android:orderInCategory="100"
-        app:showAsAction="never" /> -->
+        app:showAsAction="never" />-->
 </menu>

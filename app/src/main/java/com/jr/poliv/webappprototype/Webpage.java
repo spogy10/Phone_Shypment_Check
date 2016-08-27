@@ -45,8 +45,16 @@ public class Webpage extends AppCompatActivity {
         //webView.getSettings().setUserAgentString("ua");
         if (Build.VERSION.SDK_INT >= 11)
             webView.getSettings().setDisplayZoomControls(false);
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://www.postnl.post/");//http://192.168.1.5/app/rcu/users/login//http://therecoveryunit.com
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+
+                view.loadUrl("javascript:document.getElementById('ofq').value = 'RS567871745NL';" + "document.getElementById('btnZoek-revised').click();");
+            }
+        });
+        webView.loadUrl("http://www.postnl.post/");
+        //webView.loadUrl("javascript:document.write(document.getElementById('fb-root'));");
     }
 
 
