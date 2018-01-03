@@ -1,16 +1,12 @@
 package com.jr.poliv.webappprototype;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
@@ -24,12 +20,18 @@ public class Webpage extends AppCompatActivity {
     SharedPreferences file;
     String file_name;
     String url;
+    String turl = "https://evision.utech.edu.jm/sipr/sits.urd/run/siw_lgn";
+    //String turl = "https://evision.utech.edu.jm/sipr/sits.urd/run/siw_lgn", turl1 = "https://evision.utech.edu.jm/sipr/sits.urd/run/SIW_LGN", turl2 = "https://evision.utech.edu.jm/sipr/sits.urd/run/SIW_PQS", turl3 = "", turl4 = "";
     String webAddress;
+    boolean turl1 = false, turl2 = false, turl3 = false, turl4 = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webpage);
+
+
+
 
         //String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36";
 
@@ -50,10 +52,49 @@ public class Webpage extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 
-                view.loadUrl("javascript:document.getElementById('ofq').value = 'RS567871745NL';" + "document.getElementById('btnZoek-revised').click();");
+                if(turl4){
+                    Log.d("Paul","turl4");
+                    view.loadUrl("javascript:document.getElementsByClassName('portallink')[11].getElementsByTagName('a')[0].click()");
+                    turl4 = false;
+                    return;
+                }
+
+                if (view.getUrl().equals(turl)){
+                    Log.d("Paul","turl");
+                    view.loadUrl("javascript:document.getElementById('MUA_CODE.DUMMY.MENSYS').value = '1500747'; document.getElementById('PASSWORD.DUMMY.MENSYS').value = 'pass4utech'; document.getElementsByName('BP101.DUMMY_B.MENSYS.1')[0].click();");
+
+                    turl1 = true;
+                    return;
+                }
+
+                if(turl1){
+                    Log.d("Paul","turl1");
+                    view.loadUrl("javascript:document.getElementsByName('ANSWER.MUQ.MENSYS.1')[0].value = '050997'; document.getElementsByName('STORE.DUMMY_BUTT.MENSYS.1')[0].click();");
+                    turl1 = false;
+                    turl2 = true;
+                    return;
+                }
+
+                if(turl2){
+                    Log.d("Paul","turl2");
+                    turl2 = false;
+                    turl3 = true;
+                }
+
+                if(turl3){
+                    Log.d("Paul","turl3");
+                    view.loadUrl("javascript:document.getElementById('STU1').click();");
+                    turl3 = false;
+                    turl4 = true;
+                    return;
+                }
+
+
+
+                //view.loadUrl("javascript:document.getElementById('ofq').value = 'RS567871745NL';" + "document.getElementById('btnZoek-revised').click();");
             }
         });
-        webView.loadUrl("http://www.postnl.post/");
+        webView.loadUrl(turl);
         //webView.loadUrl("javascript:document.write(document.getElementById('fb-root'));");
     }
 
@@ -66,7 +107,6 @@ public class Webpage extends AppCompatActivity {
         else
             webAddress = getFromFile(file, url, "");
     }
-
 
     private String getFromFile(SharedPreferences file, String variable, String defaultValue){
         return file.getString(variable, defaultValue);
