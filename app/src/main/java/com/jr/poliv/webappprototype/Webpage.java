@@ -54,7 +54,7 @@ public class Webpage extends AppCompatActivity {
 
                 if(turl4){
                     Log.d("Paul","turl4");
-                    view.loadUrl("javascript:document.getElementsByClassName('portallink')[11].getElementsByTagName('a')[0].click()");
+                    view.loadUrl("javascript:document.getElementsByName('REPORTS.DUMMY.MENSYS.1')[0].value = \"SIWSTU001\"; document.getElementsByName('RUN.DUMMY.MENSYS.1')[0].click();");
                     turl4 = false;
                     return;
                 }
