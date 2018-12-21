@@ -2,13 +2,15 @@ package com.jr.poliv.webappprototype;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -18,49 +20,56 @@ public class Webpage extends AppCompatActivity {
     WebView webView;
 
     SharedPreferences file;
-    String file_name;
     String url;
-    String turl = "https://evision.utech.edu.jm/sipr/sits.urd/run/siw_lgn";
-    //String turl = "https://evision.utech.edu.jm/sipr/sits.urd/run/siw_lgn", turl1 = "https://evision.utech.edu.jm/sipr/sits.urd/run/SIW_LGN", turl2 = "https://evision.utech.edu.jm/sipr/sits.urd/run/SIW_PQS", turl3 = "", turl4 = "";
+    String turl = "http://evision.utech.edu.jm/sipr/sits.urd/run/siw_lgn";
     String webAddress;
-    boolean turl1 = false, turl2 = false, turl3 = false, turl4 = false;
+    boolean turl1 = false, turl2 = false, turl3 = false, turl4 = false, turl5 = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_webpage);
+        //turl = "https://evision.utech.edu.jm/sipr/";
+        setContentView(R.layout.activity_webpage); Log.d("Paul", "app starts");
+        String mobileUserAgent = "Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>";
+        String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36";
 
 
 
 
-        //String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36";
 
-//        file_name = getString(R.string.url_file_name);
-//        url = getString(R.string.url);
-//        file = this.getSharedPreferences(file_name, Context.MODE_PRIVATE);
-
-        //getURL();
-       webView = (WebView) findViewById(R.id.webView);
+       webView = findViewById(R.id.webView);
+       webView.setWebChromeClient(new WebChromeClient());
         WebSettings webSettings = webView.getSettings();
+        webSettings.setUserAgentString(mobileUserAgent);
         webSettings.setJavaScriptEnabled(true);
-        webView.getSettings().setBuiltInZoomControls(true);
-        //webView.getSettings().setUserAgentString("ua");
-        if (Build.VERSION.SDK_INT >= 11)
-            webView.getSettings().setDisplayZoomControls(false);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setDomStorageEnabled(true);
+        webView.getSettings().setDisplayZoomControls(false);
+
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 
+                if(turl5){
+                    Log.d("Paul","turl5");
+                    view.loadUrl("javascript:document.getElementsByName('BP103.DUMMY_B.MENSYS.1')[0].click();");
+                    turl5 = false;
+                    return;
+                }
+
                 if(turl4){
                     Log.d("Paul","turl4");
                     view.loadUrl("javascript:document.getElementsByName('REPORTS.DUMMY.MENSYS.1')[0].value = \"SIWSTU001\"; document.getElementsByName('RUN.DUMMY.MENSYS.1')[0].click();");
                     turl4 = false;
+                    turl5 = true;
                     return;
                 }
 
                 if (view.getUrl().equals(turl)){
                     Log.d("Paul","turl");
+
                     view.loadUrl("javascript:document.getElementById('MUA_CODE.DUMMY.MENSYS').value = '1500747'; document.getElementById('PASSWORD.DUMMY.MENSYS').value = 'pass4utech'; document.getElementsByName('BP101.DUMMY_B.MENSYS.1')[0].click();");
 
                     turl1 = true;
@@ -90,12 +99,17 @@ public class Webpage extends AppCompatActivity {
                 }
 
 
+            }
 
-                //view.loadUrl("javascript:document.getElementById('ofq').value = 'RS567871745NL';" + "document.getElementById('btnZoek-revised').click();");
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                Log.d("Paul", "web error: 0"+error.toString());
             }
         });
         webView.loadUrl(turl);
-        //webView.loadUrl("javascript:document.write(document.getElementById('fb-root'));");
+
+
     }
 
 
@@ -105,10 +119,10 @@ public class Webpage extends AppCompatActivity {
             startActivity(intent);
         }
         else
-            webAddress = getFromFile(file, url, "");
+            webAddress = getFromFile(url, "");
     }
 
-    private String getFromFile(SharedPreferences file, String variable, String defaultValue){
+    private String getFromFile(String variable, String defaultValue){
         return file.getString(variable, defaultValue);
     }
 

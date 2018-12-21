@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Utech_Pass_Check.iml" filepath="$PROJECT_DIR$/Utech_Pass_Check.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Phone_Shypment_Check.iml" filepath="$PROJECT_DIR$/Phone_Shypment_Check.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
